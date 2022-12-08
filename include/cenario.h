@@ -3,15 +3,15 @@
 #include <iostream>
 #include <vector>
 #include "iluminacao.h"
-#include "../algebraLinear/vetor.h"
-#include "../algebraLinear/algebraLinear.h"
-#include "../objeto/objeto.h"
-#include "../canvas.h"
-#include "../observador.h"
-#include "../janela.h"
-#include "../objeto/esfera.h"
-#include "../objeto/plano.h"
-#include "../../setup.h"
+#include "vetor.h"
+#include "algebraLinear.h"
+#include "objeto.h"
+#include "canvas.h"
+#include "observador.h"
+#include "janela.h"
+#include "esfera.h"
+#include "plano.h"
+#include "setup.h"
 
 using namespace std;
 

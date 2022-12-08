@@ -1,4 +1,4 @@
-#include "setup.h"
+#include "../include/setup.h"
 
 void Setup::paintPixel(SDL_Renderer *renderer, int x, int y){
     SDL_RenderDrawPoint(renderer, x, y);

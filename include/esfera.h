@@ -2,7 +2,7 @@
 
 #include <cmath>
 #include "objeto.h"
-#include "../algebraLinear/algebraLinear.h"
+#include "algebraLinear.h"
 
 using namespace std
 

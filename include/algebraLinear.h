@@ -1,5 +1,4 @@
-#ifndef ALGEBRALINEAR_H
-#define ALGEBRALINEAR_H
+#pragma once
 
 #include "vetor.h"
 
@@ -16,5 +15,3 @@ public:
   Vetor vetorSubVetor(Vetor p1, Vetor p2);
   double norma (Vetor v);
 };
-
-#endif

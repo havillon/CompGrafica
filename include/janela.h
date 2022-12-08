@@ -1,6 +1,6 @@
 #pragma once
 
-#include "algebraLinear/vetor.h"
+#include "vetor.h"
 
 class Janela {
 public:

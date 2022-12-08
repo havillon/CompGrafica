@@ -1,4 +1,4 @@
-#include "objeto.h"
+#include "../include/objeto.h"
 
 //Ka
 Vetor Objeto::getKa(){

@@ -2,8 +2,8 @@
 
 #include <cmath>
 #include "objeto.h"
-#include "../algebraLinear/algebraLinear.h"
-#include "../cenario/iluminacao.h"
+#include "algebraLinear.h"
+#include "iluminacao.h"
 
 using namespace std
 

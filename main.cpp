@@ -1,4 +1,4 @@
-#include "setup.h"
+#include "include/setup.h"
 
 int main(int argc, char *argv[]){
   //Observador

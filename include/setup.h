@@ -3,12 +3,12 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
-#include "src/cenario/cenario.h"
-#include "src/canvas.h"
-#include "src/janela.h"
-#include "src/observador.h"
-#include "src/algebraLinear/vetor.h"
-#include "src/algebraLinear/algebraLinear.h"
+#include "cenario.h"
+#include "canvas.h"
+#include "janela.h"
+#include "observador.h"
+#include "vetor.h"
+#include "algebraLinear.h"
 
 
 class Setup {

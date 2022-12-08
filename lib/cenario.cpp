@@ -1,4 +1,4 @@
-#include "cenario.h"
+#include "../include/cenario.h"
 
 Cenario::Cenario(){}
 

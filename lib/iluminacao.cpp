@@ -1,4 +1,4 @@
-#include "iluminacao.h"
+#include "../include/iluminacao.h"
 
 Iluminacao::Iluminacao(){}
 

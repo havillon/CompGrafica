@@ -1,5 +1,4 @@
-#ifndef VETOR_H
-#define VETOR_H
+#pragma once
 
 class Vetor {
 public: 
@@ -20,5 +19,3 @@ public:
     void set(double x, double y, double z, double w);
 
 };
-
-#endif

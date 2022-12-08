@@ -1,4 +1,4 @@
-#include "vetor.h"
+#include "../include/vetor.h"
 
 Vetor::Vetor(){};
 

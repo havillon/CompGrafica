@@ -1,4 +1,4 @@
-#include "algebraLinear.h"
+#include "../include/algebraLinear.h"
 #include <cmath>
 
 AlgebraLinear::AlgebraLinear(){}

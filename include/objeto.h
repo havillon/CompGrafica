@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include "../algebraLinear/vetor.h"
-#include "../cenario/iluminacao.h"
+#include "vetor.h"
+#include "iluminacao.h"
 
 using namespace std
 

@@ -1,4 +1,4 @@
-#include "esfera.h"
+#include "../include/esfera.h"
 
 Esfera::Esfera(){};
 
