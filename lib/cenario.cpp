@@ -20,6 +20,27 @@ Cenario::Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente,
   this->observador = observador;
 }
 
+vector<Objeto*> getObjetos();
+void setObjetos(vector<Objeto*> objetos);
+
+vector<Iluminacao*> getLuzes();
+void setLuzes(vector<Iluminacao*> luzes);
+
+Vetor getLuzAmbiente();
+void setLuzAmbiente(Vetor luzAmbiente);
+
+Vetor getFundo();
+void setFundo(Vetor fundo);
+
+Canvas getCanvas();
+void setCanvas(Canvas canvas);
+
+Janela getJanela();
+void setJanela(Janela janela);
+
+Observador getObservador();
+void setObservador(Observador observador);
+
 void Cenario::adicionarObjeto(Objeto *obj){
   this->objetos.push_back(obj);
 }
@@ -121,8 +142,4 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
   }
 
   return al.vetorMultEscalar(lFinal, 255.0);
-}
-
-void Cenario::setFundo(Vetor fundo){
-  this->fundo = fundo;
 }
