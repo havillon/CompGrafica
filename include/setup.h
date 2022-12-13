@@ -11,6 +11,7 @@
 #include "vetor.h"
 #include "algebraLinear.h"
 #include "cilindro.h"
+#include "cone.h"
 
 
 class Setup {

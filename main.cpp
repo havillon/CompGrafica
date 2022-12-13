@@ -1,5 +1,7 @@
 #include "include/setup.h"
 
+AlgebraLinear al;
+
 int main(int argc, char *argv[]){
   //Observador
   Vetor p0 (0,0,0,1);
@@ -24,6 +26,19 @@ int main(int argc, char *argv[]){
   cilindro.setKd(Vetor(0.2, 0.3, 0.8, 1));
   cilindro.setKe(Vetor(0.2, 0.3, 0.8, 1));
   cilindro.setShininess(10.0);
+
+  //Cone (altura, raio, centrobase, direcao)
+  Vetor centroCone = al.soma(
+            al.vetorMultEscalar(cilindro.direcao, cilindro.altura), 
+            cilindro.centroBase
+        );
+
+  Cone cone(100, 1.5*raio, centroCone, Vetor(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3), 0));
+  cone.setKa(Vetor(0.8, 0.3, 0.2, 1));
+  cone.setKd(Vetor(0.8, 0.3, 0.2, 1));
+  cone.setKe(Vetor(0.8, 0.3, 0.2, 1));
+  cone.setShininess(10.0);
+  
 
   //Cor Fundo
   Vetor fundo (100,100,100,1);
@@ -50,6 +65,7 @@ int main(int argc, char *argv[]){
   cenario->adicionarObjeto(&planoFundo);
   cenario->adicionarObjeto(&esfera);
   cenario->adicionarObjeto(&cilindro);
+  cenario->adicionarObjeto(&cone);
   cenario->adicionarLuz(&luzPontual);
   cenario->pintarCanvas(renderer);
   //Fim Cenario
