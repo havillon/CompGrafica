@@ -28,8 +28,8 @@ int main(int argc, char *argv[]){
   Canvas c;
 
   //Planos
-  Plano planoChao (Vetor(0,-40,0,0), Vetor(0,1,0,0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0,0,0,0), 1);
-  Plano planoFundo (Vetor(0,0,-200,0), Vetor(0,0,1,0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0,0,0,0), 1);
+  Plano planoChao (Vetor(0,-40,0,0), Vetor(0,1,0,0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), 1);
+  Plano planoFundo (Vetor(0,0,-200,0), Vetor(0,0,1,0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0.3, 0.3, 0.7, 0), 1);
 	
   Setup s;
 

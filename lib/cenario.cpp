@@ -116,12 +116,29 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
 
   Vetor fEspecular = Vetor(0,0,0,1);
 
+  bool isIntersected = false;
+
   for(int i = 0; i < luzes.size(); i++){
+
+    isIntersected = false;
+
     Vetor pfMenosPi = al.vetorSubVetor(luzes[i]->posicao, pi);  
-  
     double normaPfMenosPi = al.norma(pfMenosPi);
   
     Vetor l = al.vetorDivEscalar(pfMenosPi, normaPfMenosPi);
+
+    for(int j = 0; j < objetos.size(); j++){
+      if(objetos[j]->verificarIntersecao(pi, l)){
+        if(objetos[j]->getDistancia() < normaPfMenosPi){
+          isIntersected = true;
+          break;
+        }
+      }
+    }
+
+    if(isIntersected){
+      continue;
+    }
   
     // n * (2*l*n) - l
     Vetor r = al.vetorSubVetor(al.vetorMultEscalar(n, 2*al.produtoEscalar(l, n)), l);  

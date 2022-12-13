@@ -49,12 +49,12 @@ void Objeto::setPontoIntersecao(Vetor pontoIntersecao){
 }
 
 //DistanciaSombra
-double Objeto::getDistanciaSombra(){
-  return this->distanciaSombra;
-}
-void Objeto::setDistanciaSombra(double distanciaSombra){
-  this->distanciaSombra = distanciaSombra;
-}
+// double Objeto::getDistanciaSombra(){
+//   return this->distanciaSombra;
+// }
+// void Objeto::setDistanciaSombra(double distanciaSombra){
+//   this->distanciaSombra = distanciaSombra;
+// }
 
 //TemIntersecao
 bool Objeto::getTemIntersecao(){

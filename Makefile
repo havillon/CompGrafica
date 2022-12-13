@@ -10,7 +10,7 @@ CFLAGS = -std=c++17
 
 # Define the object files that we need to use.
 objects = main.o \
-	$(patsubst %.cpp,%.o,$(wildcard ./lib/*.cpp))
+	$(patsubst %.cpp, %.o, $(wildcard ./lib/*.cpp))
 					
 # Define the rebuildables.
 rebuildables = $(objects) $(linkTarget)

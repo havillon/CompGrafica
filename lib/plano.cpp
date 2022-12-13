@@ -24,7 +24,7 @@ bool Plano::verificarIntersecao(Vetor p0, Vetor dr){
 
   double t = (-wEscalarN)/drEscalarN;
 
-  if(t < 0){
+  if(t < 0.0001){
     return false;
   }
 

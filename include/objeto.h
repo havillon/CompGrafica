@@ -5,9 +5,9 @@
 #include "vetor.h"
 #include "iluminacao.h"
 
-using namespace std
+using namespace std;
 
-;class Objeto {
+class Objeto {
 
 private:
   Vetor Ke;
@@ -19,7 +19,7 @@ private:
   Vetor pontoIntersecao;
   bool temIntersecao;
 
-  double distanciaSombra;
+  // double distanciaSombra;
 
 
 public:
@@ -47,8 +47,8 @@ public:
   void setTemIntersecao(bool temIntersecao);
   bool getTemIntersecao();
   
-  void setDistanciaSombra(double distanciaSombra);
-  double getDistanciaSombra();
+  // void setDistanciaSombra(double distanciaSombra);
+  // double getDistanciaSombra();
 
   // virtual Vetor buscarCor(Vetor pi, vector<Iluminacao*> luzes, vector<Objeto*> objetos, Vetor p0, Vetor dr, Vetor luzAmbiente, int index) = 0;
 
