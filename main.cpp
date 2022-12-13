@@ -1,5 +1,5 @@
 #include "include/setup.h"
-
+ 
 AlgebraLinear al;
 
 int main(int argc, char *argv[]){
