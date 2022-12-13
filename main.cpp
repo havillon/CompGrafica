@@ -13,10 +13,17 @@ int main(int argc, char *argv[]){
   //Fim Janela
   
   //Esfera
-  int raio = 40;
+  double raio = 40;
   Vetor centro (0,0, -100, 1);
-  Esfera esfera (raio, centro, Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), 10);
+  Esfera esfera (raio, centro, Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), 10.0);
   //Fim Esfera
+
+  //Cilindro (altura, raio, centrobase, direcao)
+  Cilindro cilindro(3.0*raio, raio/3.0, centro, Vetor(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3), 0));
+  cilindro.setKa(Vetor(0.2, 0.3, 0.8, 1));
+  cilindro.setKd(Vetor(0.2, 0.3, 0.8, 1));
+  cilindro.setKe(Vetor(0.2, 0.3, 0.8, 1));
+  cilindro.setShininess(10.0);
 
   //Cor Fundo
   Vetor fundo (100,100,100,1);
@@ -42,6 +49,7 @@ int main(int argc, char *argv[]){
   cenario->adicionarObjeto(&planoChao);
   cenario->adicionarObjeto(&planoFundo);
   cenario->adicionarObjeto(&esfera);
+  cenario->adicionarObjeto(&cilindro);
   cenario->adicionarLuz(&luzPontual);
   cenario->pintarCanvas(renderer);
   //Fim Cenario

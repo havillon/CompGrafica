@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <cmath>
 
 #include "cenario.h"
 #include "canvas.h"
@@ -9,6 +10,7 @@
 #include "observador.h"
 #include "vetor.h"
 #include "algebraLinear.h"
+#include "cilindro.h"
 
 
 class Setup {

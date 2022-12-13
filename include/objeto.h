@@ -17,6 +17,10 @@ private:
 
   double distancia;
   Vetor pontoIntersecao;
+  
+  
+  
+  
   bool temIntersecao;
 
   // double distanciaSombra;

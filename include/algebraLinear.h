@@ -14,4 +14,5 @@ public:
   Vetor vetorSomaVetor(Vetor v, Vetor p);
   Vetor vetorSubVetor(Vetor p1, Vetor p2);
   double norma (Vetor v);
+  Vetor produtoVetorial(Vetor v1, Vetor v2);
 };
