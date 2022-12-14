@@ -121,7 +121,7 @@ bool Cilindro::verificarIntersecao(Vetor p0, Vetor dr){
     //Fim interseção com o Topo
 
     if(tCorpo < tBase && tCorpo < tTopo){
-
+        
         this->setDistancia(tCorpo);
         this->setPontoIntersecao(piCorpo);
         this->flagIntersecao = 1;

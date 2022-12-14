@@ -57,8 +57,7 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
         // Vetor dr = al.vetorDivEscalar(dr, al.norma(dr));
         double drEscalarN = al.produtoEscalar(dr, normalMalha);
         //cout << drEscalarN << "\n";
-        double t = 0;
-    
+        double t;    
         Vetor pi, v;
 
         double c1, c2, c3;
@@ -66,9 +65,6 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
         if(drEscalarN < 0 && ((t = -al.produtoEscalar(w, normalMalha) /drEscalarN) > 0)){
             
             pi = al.soma(p0, al.vetorMultEscalar(dr, t));
-
-            Vetor piMenosP0 = al.vetorSubVetor(pi, p0);
-            double distancia = al.norma(piMenosP0);
 
             Vetor piV1 = al.vetorSubVetor(p1, pi);
             Vetor piV2 = al.vetorSubVetor(p2, pi);
@@ -84,9 +80,10 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
                     al.produtoEscalar(al.produtoVetorial(r1, r2), normalMalha);
 
             double s = c1 + c2 + c3;
-            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || this->getDistancia() > distancia)){
+
+            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || this->getDistancia() > t)){
                 this->setTemIntersecao(true);
-                this->setDistancia(distancia);
+                this->setDistancia(t);
                 this->setPontoIntersecao(pi);
                 this->normal = normalMalha;
             }

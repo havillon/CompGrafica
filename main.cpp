@@ -75,8 +75,8 @@ int main(int argc, char *argv[]){
   //Vetor centroBase, double comprimentoAresta, Vetor Ka, Vetor Kd, Vetor Ke, double shininess
   Cubo cubo;
   Malha malha = cubo.criarCubo(
-    Vetor(0, -150, -165, 0),
-    40,
+    Vetor(0, -150.0, -165.0, 0),
+    40.0,
     Vetor(1, 0.078, 0.576, 0),
     Vetor(1, 0.078, 0.576, 0),
     Vetor(1, 0.078, 0.576, 0),
