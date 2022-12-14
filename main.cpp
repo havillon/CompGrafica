@@ -15,28 +15,42 @@ int main(int argc, char *argv[]){
   //Fim Janela
   
   //Esfera
-  double raio = 40;
-  Vetor centro (0,0, -100, 1);
-  Esfera esfera (raio, centro, Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), Vetor(0.7,0.2,0.2,1), 10.0);
+  //double raio, Vetor centro, Vetor Ke, Vetor Kd, Vetor Ka, double shininess
+  Esfera esfera(
+    5, 
+    Vetor(0, 95, -200, 0), 
+    Vetor(0.854, 0.647, 0.125, 0),
+    Vetor(0.854, 0.647, 0.125, 0),
+    Vetor(0.854, 0.647, 0.125, 0),
+    10
+  );
   //Fim Esfera
 
-  //Cilindro (altura, raio, centrobase, direcao)
-  Cilindro cilindro(3.0*raio, raio/3.0, centro, Vetor(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3), 0));
-  cilindro.setKa(Vetor(0.2, 0.3, 0.8, 1));
-  cilindro.setKd(Vetor(0.2, 0.3, 0.8, 1));
-  cilindro.setKe(Vetor(0.2, 0.3, 0.8, 1));
-  cilindro.setShininess(10.0);
+  //Cilindro 
+  //altura, raio, centrobase, direcao
+  Cilindro cilindro (
+    90.0,
+    5.0,
+    Vetor(0.0, -150.0, -200.0, 0),
+    Vetor(0.0, 1.0, 0.0, 0.0)
+  );
 
-  //Cone (altura, raio, centrobase, direcao)
-  Vetor centroCone = al.soma(
-            al.vetorMultEscalar(cilindro.direcao, cilindro.altura), 
-            cilindro.centroBase
-        );
-
-  Cone cone(100, 1.5*raio, centroCone, Vetor(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3), 0));
-  cone.setKa(Vetor(0.8, 0.3, 0.2, 1));
-  cone.setKd(Vetor(0.8, 0.3, 0.2, 1));
-  cone.setKe(Vetor(0.8, 0.3, 0.2, 1));
+  cilindro.setKa(Vetor(0.824, 0.706, 0.549, 0));
+  cilindro.setKd(Vetor(0.824, 0.706, 0.549, 0));
+  cilindro.setKe(Vetor(0.824, 0.706, 0.549, 0));
+  cilindro.setShininess(10);
+  
+  //Cone 
+  //altura, raio, centrobase, direcao
+  Cone cone (
+    150.0,
+    90.0,
+    Vetor(0, -60, -200, 0),
+    Vetor (0,1,0,0)
+  );
+  cone.setKa(Vetor(0, 1, 0.498, 1));
+  cone.setKd(Vetor(0, 1, 0.498, 1));
+  cone.setKe(Vetor(0, 1, 0.498, 1));
   cone.setShininess(10.0);
   
 
@@ -45,14 +59,30 @@ int main(int argc, char *argv[]){
   
   //Luzes
   Vetor luzAmbiente = Vetor(0.3, 0.3, 0.3, 1);
-  Iluminacao luzPontual = Iluminacao(Vetor(0.7, 0.7, 0.7, 1), Vetor(0, 60, -30, 0));
+  Iluminacao luzPontual = Iluminacao(Vetor(0.7, 0.7, 0.7, 1), Vetor(-100, 140, -20, 0));
   
   Canvas c;
 
   //Planos
-  Plano planoChao (Vetor(0,-40,0,0), Vetor(0,1,0,0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), 1);
-  Plano planoFundo (Vetor(0,0,-200,0), Vetor(0,0,1,0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0.3, 0.3, 0.7, 0), Vetor(0.3, 0.3, 0.7, 0), 1);
-	
+  //Vetor p_pi, Vetor n_pi, Vetor Ke, Vetor Kd, Vetor Ka, double shininess
+  Plano planoChao (Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), 10); 
+  Plano paredeDireita (Vetor(200, -150, 0, 0), Vetor(-1, 0, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
+  Plano paredeFrontal (Vetor(200, -150, -400, 0), Vetor(0, 0, 1, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
+  Plano paredeEsquerda (Vetor(-200, -150, 0, 0), Vetor(1, 0, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
+  Plano teto (Vetor(0, 150, 0, 0), Vetor(0, -1, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
+ 
+  //Cubo
+  //Vetor centroBase, double comprimentoAresta, Vetor Ka, Vetor Kd, Vetor Ke, double shininess
+  Cubo cubo;
+  Malha malha = cubo.criarCubo(
+    Vetor(0, -150, -165, 0),
+    40,
+    Vetor(0, 0.078, 0.576, 0),
+    Vetor(0, 0.078, 0.576, 0),
+    Vetor(0, 0.078, 0.576, 0),
+    10
+  );
+
   Setup s;
 
   SDL_Window *window = nullptr;
@@ -62,10 +92,14 @@ int main(int argc, char *argv[]){
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
   cenario->adicionarObjeto(&planoChao);
-  cenario->adicionarObjeto(&planoFundo);
-  cenario->adicionarObjeto(&esfera);
+  cenario->adicionarObjeto(&paredeDireita);
+  cenario->adicionarObjeto(&paredeFrontal);
+  cenario->adicionarObjeto(&paredeEsquerda);
+  cenario->adicionarObjeto(&teto);
   cenario->adicionarObjeto(&cilindro);
   cenario->adicionarObjeto(&cone);
+  cenario->adicionarObjeto(&esfera);
+  cenario->adicionarObjeto(&malha);
   cenario->adicionarLuz(&luzPontual);
   cenario->pintarCanvas(renderer);
   //Fim Cenario

@@ -5,9 +5,9 @@
 #include "algebraLinear.h"
 #include "iluminacao.h"
 
-using namespace std
+using namespace std;
 
-;class Plano : public Objeto {
+class Plano : public Objeto {
 
 public:
   Vetor p_pi;

@@ -18,13 +18,7 @@ private:
   double distancia;
   Vetor pontoIntersecao;
   
-  
-  
-  
   bool temIntersecao;
-
-  // double distanciaSombra;
-
 
 public:
   virtual bool verificarIntersecao(Vetor p0, Vetor dr) = 0;
