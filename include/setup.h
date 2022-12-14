@@ -12,6 +12,8 @@
 #include "algebraLinear.h"
 #include "cilindro.h"
 #include "cone.h"
+#include "malha.h"
+#include "cubo.h"
 
 
 class Setup {
