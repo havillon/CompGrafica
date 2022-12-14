@@ -54,33 +54,37 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
         Vetor w = al.vetorSubVetor(p0, p1);
 
+        // Vetor dr = al.vetorDivEscalar(dr, al.norma(dr));
         double drEscalarN = al.produtoEscalar(dr, normalMalha);
-
-        double t = -al.produtoEscalar(w, normalMalha) /drEscalarN;
+        //cout << drEscalarN << "\n";
+        double t = 0;
     
         Vetor pi, v;
 
         double c1, c2, c3;
 
-        if(drEscalarN != 0 && (t > 0)){
+        if(drEscalarN < 0 && ((t = -al.produtoEscalar(w, normalMalha) /drEscalarN) > 0)){
             
             pi = al.soma(p0, al.vetorMultEscalar(dr, t));
 
             Vetor piMenosP0 = al.vetorSubVetor(pi, p0);
             double distancia = al.norma(piMenosP0);
 
-            v = al.vetorSubVetor(pi, p1);
+            Vetor piV1 = al.vetorSubVetor(p1, pi);
+            Vetor piV2 = al.vetorSubVetor(p2, pi);
+            Vetor piV3 = al.vetorSubVetor(p3, pi);
 
-            c1 = al.produtoEscalar(al.produtoVetorial(v, r2), normalMalha) / 
+            c1 = al.produtoEscalar(al.produtoVetorial(piV3, piV1), normalMalha) / 
                     al.produtoEscalar(al.produtoVetorial(r1, r2), normalMalha);
 
-            c2 = al.produtoEscalar(al.produtoVetorial(r1, v), normalMalha) / 
+            c2 = al.produtoEscalar(al.produtoVetorial(piV1, piV2), normalMalha) / 
                     al.produtoEscalar(al.produtoVetorial(r1, r2), normalMalha);
 
-            c3 = 1 - c1 - c2;
+            c3 = al.produtoEscalar(al.produtoVetorial(piV2, piV3), normalMalha) / 
+                    al.produtoEscalar(al.produtoVetorial(r1, r2), normalMalha);
 
-
-            if(c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || this->getDistancia() > distancia)){
+            double s = c1 + c2 + c3;
+            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || this->getDistancia() > distancia)){
                 this->setTemIntersecao(true);
                 this->setDistancia(distancia);
                 this->setPontoIntersecao(pi);

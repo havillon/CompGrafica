@@ -77,9 +77,9 @@ int main(int argc, char *argv[]){
   Malha malha = cubo.criarCubo(
     Vetor(0, -150, -165, 0),
     40,
-    Vetor(0, 0.078, 0.576, 0),
-    Vetor(0, 0.078, 0.576, 0),
-    Vetor(0, 0.078, 0.576, 0),
+    Vetor(1, 0.078, 0.576, 0),
+    Vetor(1, 0.078, 0.576, 0),
+    Vetor(1, 0.078, 0.576, 0),
     10
   );
 
