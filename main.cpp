@@ -65,12 +65,14 @@ int main(int argc, char *argv[]){
 
   //Planos
   //Vetor p_pi, Vetor n_pi, Vetor Ke, Vetor Kd, Vetor Ka, double shininess
-  Plano planoChao (Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), 10); 
+  // Plano planoChao (Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), Vetor(0.2, 0.7, 0.2, 0), 10); 
   Plano paredeDireita (Vetor(200, -150, 0, 0), Vetor(-1, 0, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
   Plano paredeFrontal (Vetor(200, -150, -400, 0), Vetor(0, 0, 1, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
   Plano paredeEsquerda (Vetor(-200, -150, 0, 0), Vetor(1, 0, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
   Plano teto (Vetor(0, 150, 0, 0), Vetor(0, -1, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
  
+  PlanoComTextura planoChao (new Imagem("texturas/Madeira.jpg"), Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), 10.0); 
+
   //Cubo
   //Vetor centroBase, double comprimentoAresta, Vetor Ka, Vetor Kd, Vetor Ke, double shininess
   Cubo cubo;
@@ -91,14 +93,14 @@ int main(int argc, char *argv[]){
 
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
-  // cenario->adicionarObjeto(&planoChao);
-  // cenario->adicionarObjeto(&paredeDireita);
-  // cenario->adicionarObjeto(&paredeFrontal);
-  // cenario->adicionarObjeto(&paredeEsquerda);
-  // cenario->adicionarObjeto(&teto);
-  // cenario->adicionarObjeto(&cilindro);
-  // cenario->adicionarObjeto(&cone);
-  // cenario->adicionarObjeto(&esfera);
+  cenario->adicionarObjeto(&planoChao);
+  cenario->adicionarObjeto(&paredeDireita);
+  cenario->adicionarObjeto(&paredeFrontal);
+  cenario->adicionarObjeto(&paredeEsquerda);
+  cenario->adicionarObjeto(&teto);
+  cenario->adicionarObjeto(&cilindro);
+  cenario->adicionarObjeto(&cone);
+  cenario->adicionarObjeto(&esfera);
   cenario->adicionarObjeto(&malha);
   cenario->adicionarLuz(&luzPontual);
   cenario->pintarCanvas(renderer);

@@ -14,6 +14,9 @@
 #include "cone.h"
 #include "malha.h"
 #include "cubo.h"
+#include "planoComTextura.h"
+#include "imagem.h"
+
 
 
 class Setup {

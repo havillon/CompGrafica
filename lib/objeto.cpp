@@ -64,3 +64,6 @@ void Objeto::setTemIntersecao(bool temIntersecao){
   this->temIntersecao = temIntersecao;
 }
 
+void Objeto::verificarIntersecaoTextura(Vetor pi){
+
+}

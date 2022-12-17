@@ -93,6 +93,7 @@ void Cenario::pintarCanvas(SDL_Renderer *renderer){
         SDL_SetRenderDrawColor(renderer, fundo.r, fundo.g, fundo.b, 0);
       }else{
         Vetor pi = objetos[posObjFrontal]->getPontoIntersecao();
+        objetos[posObjFrontal]->verificarIntersecaoTextura(pi);
         // Vetor cor = this->objetos[posObjFrontal]->buscarCor(pi, luzes, objetos, p, dr, luzAmbiente, posObjFrontal);
         Vetor cor = this->buscarCor(pi, dr, posObjFrontal);
         SDL_SetRenderDrawColor(renderer, cor.r, cor.g, cor.b, 0);

@@ -9,6 +9,7 @@
 using std::string;
 
 class Imagem {
+public:
     Vetor pixel;
     SDL_Surface* imagem;
 

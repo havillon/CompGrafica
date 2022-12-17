@@ -30,8 +30,6 @@ bool Plano::verificarIntersecao(Vetor p0, Vetor dr){
 
   Vetor pi = al.soma(p0, al.vetorMultEscalar(dr, t));
 
-  //Vetor v =  al.vetorDivEscalar(al.vetorMultEscalar(dr,-1), al.norma(dr)); 
-
   double distancia = al.norma(al.vetorSubVetor(pi, p0));
 
   this->setDistancia(distancia);

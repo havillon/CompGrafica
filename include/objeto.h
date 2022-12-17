@@ -24,6 +24,8 @@ public:
   virtual bool verificarIntersecao(Vetor p0, Vetor dr) = 0;
   virtual Vetor calcularNormal(Vetor posicao) = 0;
 
+  virtual void verificarIntersecaoTextura(Vetor p0);
+
   void setKe(Vetor Ke);
   Vetor getKe();
 
