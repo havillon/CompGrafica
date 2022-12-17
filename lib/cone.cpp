@@ -147,3 +147,50 @@ Vetor Cone::calcularNormal(Vetor posicao){
         return al.vetorMultEscalar(direcao, -1);
     }
 }
+
+void Cone::rotacionarX(double angulo){
+  centroBase = al.rotacionarX(centroBase, angulo);
+  direcao = al.rotacionarX(direcao, angulo);
+}
+
+void Cone::rotacionarY(double angulo){
+  centroBase = al.rotacionarY(centroBase, angulo);
+  direcao = al.rotacionarY(direcao, angulo);
+}
+
+void Cone::rotacionarZ(double angulo){
+  centroBase = al.rotacionarZ(centroBase, angulo);
+  direcao = al.rotacionarZ(direcao, angulo);
+}
+
+void Cone::translacao(double x, double y, double z){
+  centroBase = al.translacao(centroBase, x, y, z);
+}
+
+void Cone::escala(double sx, double sy, double sz){
+  centroBase = al.escala(centroBase, sx, sy, sz);
+  raio = raio * max(sx,(max(sy,sz)));
+}
+
+void Cone::espelhamentoXY(){
+  centroBase = al.espelhamentoXY(centroBase);
+  direcao = al.espelhamentoXY(direcao);
+}
+
+void Cone::espelhamentoXZ(){
+  centroBase = al.espelhamentoXZ(centroBase);
+  direcao = al.espelhamentoXZ(direcao);
+}
+
+void Cone::espelhamentoYZ(){
+  centroBase = al.espelhamentoYZ(centroBase);
+  direcao = al.espelhamentoYZ(direcao);
+}
+
+//nada acontece aqui
+void Cone::cisalhamentoYX(double angulo){}
+void Cone::cisalhamentoXY(double angulo){}
+void Cone::cisalhamentoXZ(double angulo){}
+void Cone::cisalhamentoZX(double angulo){}
+void Cone::cisalhamentoYZ(double angulo){}
+void Cone::cisalhamentoZY(double angulo){}

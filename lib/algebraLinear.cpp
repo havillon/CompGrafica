@@ -48,3 +48,132 @@ Vetor AlgebraLinear::produtoVetorial(Vetor v1, Vetor v2){
   );
 }
 
+//1 - ponto
+//0 - vetor
+//transformações
+
+Vetor AlgebraLinear::rotacionarX(Vetor a, double angulo) {
+    return Vetor(
+        a.x,
+        a.y*cos(angulo) - a.z*sin(angulo),
+        a.y*sin(angulo) + a.z*cos(angulo),
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::rotacionarZ(Vetor a, double angulo) {
+    return Vetor(
+        a.x*cos(angulo) - a.y*sin(angulo),
+        a.x*sin(angulo) + a.y*cos(angulo),
+        a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::rotacionarY(Vetor a, double angulo) {
+    return Vetor(
+        a.x*cos(angulo) + a.z*sin(angulo),
+        a.y,
+        -a.x*sin(angulo) + a.z*cos(angulo),
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::translacao(Vetor a, double x, double y, double z) {
+    return Vetor(
+        a.x + x,
+        a.y + y,
+        a.z + z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::escala(Vetor a, double sx, double sy, double sz) {
+    return Vetor(
+        a.x * sx,
+        a.y * sy,
+        a.z * sz,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::espelhamentoXY(Vetor a) {
+    return Vetor(
+        a.x,
+        a.y,
+        -a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::espelhamentoXZ(Vetor a) {
+    return Vetor(
+        a.x,
+        -a.y,
+        a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::espelhamentoYZ(Vetor a) {
+    return Vetor(
+        -a.x,
+        a.y,
+        a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoYX(Vetor a, double angulo) {
+    return Vetor(
+        a.x + a.y * tan(angulo),
+        a.y,
+        a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoXY(Vetor a, double angulo) {
+    return Vetor(
+        a.x,
+        a.y + a.x * tan(angulo),
+        a.z,
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoXZ(Vetor a, double angulo) {
+    return Vetor(
+        a.x,
+        a.y,
+        a.z + a.x * tan(angulo),
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoZX(Vetor a, double angulo) {
+    return Vetor(
+       a.x + a.z * tan(angulo),
+       a.y,
+       a.z,
+       a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoYZ(Vetor a, double angulo) {
+    return Vetor(
+        a.x,
+        a.y,
+        a.z + a.y * tan(angulo),
+        a.w
+    );
+}
+
+Vetor AlgebraLinear::cisalhamentoZY(Vetor a, double angulo) {
+    return Vetor(
+        a.x,
+        a.y + a.z * tan(angulo),
+        a.z,
+        a.w
+    );
+}

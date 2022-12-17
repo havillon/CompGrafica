@@ -10,7 +10,7 @@ void Malha::adicionarFace(Face face){
     this->faces.push_back(face);
 }
 
-void Malha::adicionarVertice(Vertice vertice){
+void Malha::adicionarVertice(Vertice* vertice){
     this->vertices.push_back(vertice);
 }
 
@@ -42,9 +42,9 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
             v3 = (((idVertice11) * (idVertice12))/(v1));
         }
 
-        Vetor p1 = vertices[v1].ponto;
-        Vetor p2 = vertices[v2].ponto;
-        Vetor p3 = vertices[v3].ponto;
+        Vetor p1 = vertices[v1]->ponto;
+        Vetor p2 = vertices[v2]->ponto;
+        Vetor p3 = vertices[v3]->ponto;
 
         Vetor r1 = al.vetorSubVetor(p2, p1);
         Vetor r2 = al.vetorSubVetor(p3, p1);
@@ -94,4 +94,88 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
 Vetor Malha::calcularNormal(Vetor posicao){
     return this->normal;
+}
+
+void Malha::rotacionarX(double angulo){
+    for (Vertice *v : vertices) {
+        v->ponto = al.rotacionarX(v->ponto, angulo);
+    }
+}
+
+void Malha::rotacionarY(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.rotacionarY(v->ponto, angulo);
+    }
+}
+
+void Malha::rotacionarZ(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.rotacionarZ(v->ponto, angulo);
+    }
+}
+
+void Malha::translacao(double x, double y, double z){
+	for (Vertice* v : vertices) {
+        v->ponto = al.translacao(v->ponto, x, y, z);
+    }
+}
+
+void Malha::escala(double sx, double sy, double sz){
+    for (Vertice* v : vertices) {
+        v->ponto = al.escala(v->ponto,sx, sy, sz);
+    }
+}
+
+void Malha::espelhamentoXY(){
+	for (Vertice* v : vertices) {
+        v->ponto = al.espelhamentoXY(v->ponto);
+    }
+}
+
+void Malha::espelhamentoXZ(){
+  	for (Vertice* v : vertices) {
+        v->ponto = al.espelhamentoXZ(v->ponto);
+    }
+}
+
+void Malha::espelhamentoYZ(){
+	for (Vertice* v : vertices) {
+        v->ponto = al.espelhamentoYZ(v->ponto);
+    }
+}
+
+void Malha::cisalhamentoYX(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoYX(v->ponto, angulo);
+    }
+}
+
+void Malha::cisalhamentoXY(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoXY(v->ponto, angulo);
+    }
+}
+
+void Malha::cisalhamentoXZ(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoXZ(v->ponto, angulo);
+    }
+}
+
+void Malha::cisalhamentoZX(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoZX(v->ponto, angulo);
+    }
+}
+
+void Malha::cisalhamentoYZ(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoYZ(v->ponto, angulo);
+    }
+}
+
+void Malha::cisalhamentoZY(double angulo){
+	for (Vertice* v : vertices) {
+        v->ponto = al.cisalhamentoZY(v->ponto, angulo);
+    }
 }

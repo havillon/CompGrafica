@@ -16,3 +16,7 @@ PlanoComTextura::PlanoComTextura(Imagem* textura, Vetor pi, Vetor normal, double
     this->normal = normal;
     this->setShininess(shininess);
 }
+
+void PlanoComTextura::setIntensidades(){
+    
+}

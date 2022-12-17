@@ -52,4 +52,19 @@ public:
 
   //virtual Vetor verificarCor(Vetor p0, Vetor dr, Vetor pi, vector<Iluminacao*> Luzes, vector<Objeto*> Objetos, Vetor luzAmbiente) = 0;
 
+
+  virtual void rotacionarX(double angulo) = 0;
+  virtual void rotacionarY(double angulo) = 0;
+  virtual void rotacionarZ(double angulo) = 0;
+  virtual void translacao(double x, double y, double z) = 0;
+  virtual void escala(double sx, double sy, double sz) = 0;
+  virtual void espelhamentoXY() = 0;
+  virtual void espelhamentoXZ() = 0;
+  virtual void espelhamentoYZ() = 0;
+  virtual void cisalhamentoYX(double angulo) = 0;
+  virtual void cisalhamentoXY(double angulo) = 0;
+  virtual void cisalhamentoXZ(double angulo) = 0;
+  virtual void cisalhamentoZX(double angulo) = 0;
+  virtual void cisalhamentoYZ(double angulo) = 0;
+  virtual void cisalhamentoZY(double angulo) = 0;
 };

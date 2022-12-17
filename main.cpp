@@ -91,14 +91,14 @@ int main(int argc, char *argv[]){
 
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
-  cenario->adicionarObjeto(&planoChao);
-  cenario->adicionarObjeto(&paredeDireita);
-  cenario->adicionarObjeto(&paredeFrontal);
-  cenario->adicionarObjeto(&paredeEsquerda);
-  cenario->adicionarObjeto(&teto);
-  cenario->adicionarObjeto(&cilindro);
-  cenario->adicionarObjeto(&cone);
-  cenario->adicionarObjeto(&esfera);
+  // cenario->adicionarObjeto(&planoChao);
+  // cenario->adicionarObjeto(&paredeDireita);
+  // cenario->adicionarObjeto(&paredeFrontal);
+  // cenario->adicionarObjeto(&paredeEsquerda);
+  // cenario->adicionarObjeto(&teto);
+  // cenario->adicionarObjeto(&cilindro);
+  // cenario->adicionarObjeto(&cone);
+  // cenario->adicionarObjeto(&esfera);
   cenario->adicionarObjeto(&malha);
   cenario->adicionarLuz(&luzPontual);
   cenario->pintarCanvas(renderer);

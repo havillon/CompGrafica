@@ -45,55 +45,48 @@ Vetor Plano::calcularNormal(Vetor posicao){
   return this->n_pi;
 }
 
-// Vetor Plano::buscarCor(Vetor pi, vector<Iluminacao*> luzes, vector<Objeto*> objetos, Vetor p0, Vetor dr, Vetor luzAmbiente, int index){
-//   AlgebraLinear al;
-//   Vetor corFinal;
+void Plano::rotacionarX(double angulo){
+  p_pi = al.rotacionarX(p_pi, angulo);
+  n_pi = al.rotacionarX(n_pi, angulo);
+}
 
-//   Vetor v = al.vetorDivEscalar(al.vetorMultEscalar(dr,-1), al.norma(dr));
+void Plano::rotacionarY(double angulo){
+  p_pi = al.rotacionarY(p_pi, angulo);
+  n_pi = al.rotacionarY(n_pi, angulo);
+}
 
-//   Vetor fDifusa = Vetor(0,0,0,1);
+void Plano::rotacionarZ(double angulo){
+  p_pi = al.rotacionarZ(p_pi, angulo);
+  n_pi = al.rotacionarZ(n_pi, angulo);
+}
 
-//   Vetor fEspecular = Vetor(0,0,0,1);
+void Plano::translacao(double x, double y, double z){
+  p_pi = al.translacao(p_pi, x, y, z);
+}
 
-//   Vetor fAmbiente = al.arroba(objetos[index]->Ka, luzAmbiente);
+void Plano::escala(double sx, double sy, double sz){
+  p_pi = al.escala(p_pi, sx, sy, sz);
+}
 
-//   for(int i = 0; i < luzes.size(); i++){
-//     Vetor pfMenosPi = al.vetorSubVetor(luzes[i]->posicao, pi);  
-  
-//     double normaPfMenosPi = al.norma(pfMenosPi);
-  
-//     Vetor l = al.vetorDivEscalar(pfMenosPi, normaPfMenosPi);
+void Plano::espelhamentoXY(){
+  p_pi = al.espelhamentoXY(p_pi);
+  n_pi = al.espelhamentoXY(n_pi);
+}
 
-//     bool intersecOutrosObj = false;
+void Plano::espelhamentoXZ(){
+  p_pi = al.espelhamentoXZ(p_pi);
+  n_pi = al.espelhamentoXZ(n_pi);
+}
 
-//     for(int j = 0; (j < objetos.size() && !intersecOutrosObj); j++){
-//       if(j != index){
-//         // Vetor pontoAntigo = objetos[i]->pi;
-//         // Vetor distanciaAntiga = objetos[i]->distancia;
-//         bool teste = objetos[i]->verificarIntersecao(pi, dr);
-//         intersecOutrosObj = teste && (objetos[j]->distancia < objetos[index]->distancia);
-//       }
-//     }
+void Plano::espelhamentoYZ(){
+  p_pi = al.espelhamentoYZ(p_pi);
+  n_pi = al.espelhamentoYZ(n_pi);
+}
 
-//     if(!intersecOutrosObj){
-//       // n * (2*l*n) - l
-//       Vetor r = al.vetorSubVetor(al.vetorMultEscalar(this->n_pi, 2*al.produtoEscalar(l, this->n_pi)), l);  
-
-//       fDifusa = al.vetorSomaVetor(fDifusa, al.vetorMultEscalar(al.arroba(luzes[i]->intensidade, this->Kd), max(al.produtoEscalar(l, this->n_pi), 0.0)));
-  
-//       //especular -> (fonte @ K) * (v.r)
-//       fEspecular = al.vetorSomaVetor(fEspecular, al.vetorMultEscalar(al.arroba(luzes[i]->intensidade, this->Ke), (pow(max(al.produtoEscalar(r, v), 0.0), this->shininess))));
-
-//       Vetor lFinal = al.soma(al.soma(fDifusa, fEspecular), fAmbiente);
-
-//       double maxF = max(lFinal.r, max(lFinal.g, lFinal.b));
-
-//       if(maxF > 1){
-//         lFinal = Vetor(lFinal.r/maxF, lFinal.g/maxF, lFinal.b/maxF, 1);
-//       }
-
-//       return al.vetorMultEscalar(lFinal, 255.0);
-//     }
-    
-//   }
-// }
+//nada acontece aqui
+void Plano::cisalhamentoYX(double angulo){}
+void Plano::cisalhamentoXY(double angulo){}
+void Plano::cisalhamentoXZ(double angulo){}
+void Plano::cisalhamentoZX(double angulo){}
+void Plano::cisalhamentoYZ(double angulo){}
+void Plano::cisalhamentoZY(double angulo){}

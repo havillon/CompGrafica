@@ -4,14 +4,14 @@
 #include "imagem.h"
 
 class PlanoComTextura : public Plano {
-    private:
-        Imagem* textura = nullptr;
-
     public:
+        Imagem* textura = nullptr;
+        AlgebraLinear al;
         void setTextura(Imagem* textura);
         Imagem* getTextura();
         Vetor normal;
 
         PlanoComTextura();
         PlanoComTextura(Imagem* textura, Vetor pi, Vetor normal, double shininess);
+        void setIntensidades();
 };

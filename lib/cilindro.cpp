@@ -169,3 +169,50 @@ Vetor Cilindro::calcularNormal(Vetor posicao){
     }
     
 }
+
+void Cilindro::rotacionarX(double angulo){
+  centroBase = al.rotacionarX(centroBase, angulo);
+  direcao = al.rotacionarX(direcao, angulo);
+}
+
+void Cilindro::rotacionarY(double angulo){
+  centroBase = al.rotacionarY(centroBase, angulo);
+  direcao = al.rotacionarY(direcao, angulo);
+}
+
+void Cilindro::rotacionarZ(double angulo){
+  centroBase = al.rotacionarZ(centroBase, angulo);
+  direcao = al.rotacionarZ(direcao, angulo);
+}
+
+void Cilindro::translacao(double x, double y, double z){
+  centroBase = al.translacao(centroBase, x, y, z);
+}
+
+void Cilindro::escala(double sx, double sy, double sz){
+  centroBase = al.escala(centroBase, sx, sy, sz);
+  raio = raio * max(sx,(max(sy,sz)));
+}
+
+void Cilindro::espelhamentoXY(){
+  centroBase = al.espelhamentoXY(centroBase);
+  direcao = al.espelhamentoXY(direcao);
+}
+
+void Cilindro::espelhamentoXZ(){
+  centroBase = al.espelhamentoXZ(centroBase);
+  direcao = al.espelhamentoXZ(direcao);
+}
+
+void Cilindro::espelhamentoYZ(){
+  centroBase = al.espelhamentoYZ(centroBase);
+  direcao = al.espelhamentoYZ(direcao);
+}
+
+//nada acontece aqui
+void Cilindro::cisalhamentoYX(double angulo){}
+void Cilindro::cisalhamentoXY(double angulo){}
+void Cilindro::cisalhamentoXZ(double angulo){}
+void Cilindro::cisalhamentoZX(double angulo){}
+void Cilindro::cisalhamentoYZ(double angulo){}
+void Cilindro::cisalhamentoZY(double angulo){}

@@ -2,7 +2,7 @@
 linkTarget = cg
 
 # Define libraries that we need,
-LIBS = -lSDL2
+LIBS = -lSDL2 -lSDL2_image
 
 # Define flags.
 # CFLAGS = -std=c++17 -pg
