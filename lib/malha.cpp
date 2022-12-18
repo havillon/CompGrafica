@@ -19,9 +19,8 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
     if(!this->verificarIntersecaoEnvoltorio(p0, dr)){
         return false;
     }
-
+    double distancia = numeric_limits<double>::infinity();
     this->setTemIntersecao(false);
-    this->setDistancia(numeric_limits<double>::infinity());
     
     for(int i = 0; i < faces.size(); i++){
         int idAresta1 = faces[i].idAresta1;
@@ -86,8 +85,9 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
             double s = c1 + c2 + c3;
 
-            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || this->getDistancia() > t)){
+            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || distancia > t)){
                 this->setTemIntersecao(true);
+                distancia = t;
                 this->setDistancia(t);
                 this->setPontoIntersecao(pi);
                 this->normal = normalMalha;

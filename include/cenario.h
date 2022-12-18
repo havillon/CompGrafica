@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <limits>
 #include "iluminacao.h"
 #include "vetor.h"
 #include "algebraLinear.h"
@@ -16,7 +17,7 @@
 using namespace std;
 
 class Cenario {
-private:
+public:
   vector<Objeto*> objetos;
   vector<Iluminacao*> luzes;
   Vetor luzAmbiente;
@@ -24,12 +25,14 @@ private:
   Canvas *canvas;
   Janela *janela;
   Observador observador;
+  AlgebraLinear al;
   
-public:
   Cenario();
   Cenario(vector<Objeto*> objetos, vector<Iluminacao*> luzes, Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador);
   Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador);
-  
+  void picking();
+  void menuPicking(int indice);
+
   vector<Objeto*> getObjetos();
   void setObjetos(vector<Objeto*> objetos);
 
@@ -51,7 +54,7 @@ public:
   Observador getObservador();
   void setObservador(Observador observador);
   
-  void pintarCanvas(SDL_Renderer *renderer);
+  void pintarCanvas();
 
   Vetor buscarCor(Vetor pi, Vetor dr, int index);
 

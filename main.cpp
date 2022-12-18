@@ -85,30 +85,29 @@ int main(int argc, char *argv[]){
     10
   );
 
-  Setup s;
+  // Setup s;
 
-  SDL_Window *window = nullptr;
-  SDL_Renderer *renderer = nullptr;
-  s.initializeSDLAndWindow(&window, &renderer, 500, 500);
+  // SDL_Window *window = nullptr;
+  // SDL_Renderer *renderer = nullptr;
+  // s.initializeSDLAndWindow(&window, &renderer, 500, 500);
 
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
-  // cenario->adicionarObjeto(&planoChao);
-  // cenario->adicionarObjeto(&paredeDireita);
-  // cenario->adicionarObjeto(&paredeFrontal);
-  // cenario->adicionarObjeto(&paredeEsquerda);
-  // cenario->adicionarObjeto(&teto);
-  // cenario->adicionarObjeto(&cilindro);
-  // cenario->adicionarObjeto(&cone);
-  // cenario->adicionarObjeto(&esfera);
+  cenario->adicionarObjeto(&planoChao);
+  cenario->adicionarObjeto(&paredeDireita);
+  cenario->adicionarObjeto(&paredeFrontal);
+  cenario->adicionarObjeto(&paredeEsquerda);
+  cenario->adicionarObjeto(&teto);
+  cenario->adicionarObjeto(&cilindro);
+  cenario->adicionarObjeto(&cone);
+  cenario->adicionarObjeto(&esfera);
   cenario->adicionarObjeto(&malha);
-
   cenario->adicionarLuz(&luzPontual);
-  cenario->pintarCanvas(renderer);
+  cenario->pintarCanvas();
   //Fim Cenario
   
-  s.update(renderer);
-  s.listenEventQuit(window);
+  // s.update(renderer);
+  // s.listenEventQuit(window);
   return 0;
 
 }
