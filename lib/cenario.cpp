@@ -94,7 +94,7 @@ void Cenario::pintarCanvas(SDL_Renderer *renderer){
       }else{
         Vetor pi = objetos[posObjFrontal]->getPontoIntersecao();
         objetos[posObjFrontal]->verificarIntersecaoTextura(pi);
-        // Vetor cor = this->objetos[posObjFrontal]->buscarCor(pi, luzes, objetos, p, dr, luzAmbiente, posObjFrontal);
+
         Vetor cor = this->buscarCor(pi, dr, posObjFrontal);
         SDL_SetRenderDrawColor(renderer, cor.r, cor.g, cor.b, 0);
       }
@@ -123,7 +123,7 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
 
     isIntersected = false;
 
-    Vetor pfMenosPi = al.vetorSubVetor(luzes[i]->posicao, pi);  
+    Vetor pfMenosPi = al.vetorSubVetor(luzes[i]->posicao, pi);
     double normaPfMenosPi = al.norma(pfMenosPi);
   
     Vetor l = al.vetorDivEscalar(pfMenosPi, normaPfMenosPi);
@@ -142,13 +142,33 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
     }
   
     // n * (2*l*n) - l
-    Vetor r = al.vetorSubVetor(al.vetorMultEscalar(n, 2*al.produtoEscalar(l, n)), l);  
+    Vetor r = al.vetorSubVetor(al.vetorMultEscalar(n, 2*al.produtoEscalar(l, n)), l);
   
     //difusa -> (fonte @ K) * (l.n)
-    fDifusa = al.vetorSomaVetor(fDifusa, al.vetorMultEscalar(al.arroba(luzes[i]->intensidade, this->objetos[index]->getKd()), std::max(al.produtoEscalar(l, n), 0.0)));
+    fDifusa = al.vetorSomaVetor(
+      fDifusa, 
+      al.vetorMultEscalar(
+        al.arroba(luzes[i]->intensidade, this->objetos[index]->getKd()), 
+        std::max(al.produtoEscalar(l, n), 0.0)
+      )
+    );
   
     //especular -> (fonte @ K) * (v.r)
-    fEspecular = al.vetorSomaVetor(fEspecular, al.vetorMultEscalar(al.arroba(luzes[i]->intensidade, this->objetos[index]->getKe()), (pow(std::max(al.produtoEscalar(r, v), 0.0), this->objetos[index]->getShininess()))));
+    fEspecular = al.vetorSomaVetor(
+      fEspecular, 
+      al.vetorMultEscalar(
+        al.arroba(
+          luzes[i]->intensidade, 
+          this->objetos[index]->getKe()
+        ), 
+        (
+          pow(
+            std::max(al.produtoEscalar(r, v), 0.0), 
+            this->objetos[index]->getShininess()
+          )
+        )
+      )
+    );
   }
 
   Vetor lFinal = al.soma(al.soma(fDifusa, fEspecular), fAmbiente);

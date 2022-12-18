@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <cmath>
 #include "objeto.h"
 #include "algebraLinear.h"
 #include "aresta.h"
@@ -17,6 +18,10 @@ public:
     vector<Face> faces;
     vector<Vertice*> vertices;
 
+    //Envoltorio
+    Vetor centro;
+    double raio;
+
     Vetor normal;
 
     AlgebraLinear al;
@@ -28,6 +33,8 @@ public:
 
     bool verificarIntersecao(Vetor p0, Vetor dr) override;
     Vetor calcularNormal(Vetor posicao) override;
+
+    bool verificarIntersecaoEnvoltorio(Vetor p0, Vetor dr);
 
     void rotacionarX(double angulo) override;
     void rotacionarY(double angulo) override;

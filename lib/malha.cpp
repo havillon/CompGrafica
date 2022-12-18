@@ -15,6 +15,11 @@ void Malha::adicionarVertice(Vertice* vertice){
 }
 
 bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
+
+    if(!this->verificarIntersecaoEnvoltorio(p0, dr)){
+        return false;
+    }
+
     this->setTemIntersecao(false);
     this->setDistancia(numeric_limits<double>::infinity());
     
@@ -92,6 +97,32 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
     return this->getTemIntersecao();
 }
 
+
+bool Malha::verificarIntersecaoEnvoltorio(Vetor p0, Vetor dr){
+    Vetor w = al.vetorSubVetor(p0, centro);
+
+    double a = al.produtoEscalar(dr,dr);
+    double b = 2*al.produtoEscalar(w, dr);
+    double c = al.produtoEscalar(w,w) - (this->raio*this->raio);
+
+    double delta = (b*b) - (4*a*c);
+
+    if(delta < 0){
+        return false;
+    }else{
+        double t1 = (-b - sqrt(delta)) / (2*a);
+        double t2 = (-b + sqrt(delta)) / (2*a);
+
+        double t = max(min(t1,t2),0.0);
+
+        if(t < 0.0001){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 Vetor Malha::calcularNormal(Vetor posicao){
     return this->normal;
 }
@@ -100,82 +131,97 @@ void Malha::rotacionarX(double angulo){
     for (Vertice *v : vertices) {
         v->ponto = al.rotacionarX(v->ponto, angulo);
     }
+    this->centro = al.rotacionarX(this->centro, angulo);
 }
 
 void Malha::rotacionarY(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.rotacionarY(v->ponto, angulo);
     }
+    this->centro = al.rotacionarY(this->centro, angulo);
 }
 
 void Malha::rotacionarZ(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.rotacionarZ(v->ponto, angulo);
     }
+    this->centro = al.rotacionarZ(this->centro, angulo);
 }
 
 void Malha::translacao(double x, double y, double z){
 	for (Vertice* v : vertices) {
         v->ponto = al.translacao(v->ponto, x, y, z);
     }
+    this->centro = al.translacao(this->centro, x, y, z);
 }
 
 void Malha::escala(double sx, double sy, double sz){
     for (Vertice* v : vertices) {
         v->ponto = al.escala(v->ponto,sx, sy, sz);
     }
+    this->centro = al.escala(this->centro, sx, sy, sz);
+    this->raio = max(sx, max(sy, sz)) * this->raio;
 }
 
 void Malha::espelhamentoXY(){
 	for (Vertice* v : vertices) {
         v->ponto = al.espelhamentoXY(v->ponto);
     }
+    this->centro = al.espelhamentoXY(this->centro);
 }
 
 void Malha::espelhamentoXZ(){
   	for (Vertice* v : vertices) {
         v->ponto = al.espelhamentoXZ(v->ponto);
     }
+    this->centro = al.espelhamentoXZ(this->centro);
 }
 
 void Malha::espelhamentoYZ(){
 	for (Vertice* v : vertices) {
         v->ponto = al.espelhamentoYZ(v->ponto);
     }
+    this->centro = al.espelhamentoYZ(this->centro);
 }
 
 void Malha::cisalhamentoYX(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoYX(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoYX(this->centro, angulo);
 }
 
 void Malha::cisalhamentoXY(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoXY(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoXY(this->centro, angulo);
 }
 
 void Malha::cisalhamentoXZ(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoXZ(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoXZ(this->centro, angulo);
 }
 
 void Malha::cisalhamentoZX(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoZX(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoZX(this->centro, angulo);
 }
 
 void Malha::cisalhamentoYZ(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoYZ(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoYZ(this->centro, angulo);
 }
 
 void Malha::cisalhamentoZY(double angulo){
 	for (Vertice* v : vertices) {
         v->ponto = al.cisalhamentoZY(v->ponto, angulo);
     }
+    this->centro = al.cisalhamentoZY(this->centro, angulo);
 }
