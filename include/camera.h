@@ -12,7 +12,7 @@ public:
 
     AlgebraLinear al;
 
-	Vetor worldToCamera(Vetor world);
+	Vetor mundoParaCamera(Vetor world);
 
 	Camera(Vetor* eye, Vetor* at, Vetor* up);
 

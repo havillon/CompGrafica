@@ -1,7 +1,7 @@
 #include "../include/camera.h"
 #include "../include/algebraLinear.h"
 
-Vetor Camera::worldToCamera(Vetor world) {
+Vetor Camera::mundoParaCamera(Vetor world) {
 
 	Vetor k = al.vetorSubVetor(*eye, *at);
 	Vetor normalK = al.vetorDivEscalar(k, al.norma(k));

@@ -16,9 +16,9 @@ void Malha::adicionarVertice(Vertice* vertice){
 
 bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
-    if(!this->verificarIntersecaoEnvoltorio(p0, dr)){
-        return false;
-    }
+    // if(!this->verificarIntersecaoEnvoltorio(p0, dr)){
+    //     return false;
+    // }
     double distancia = numeric_limits<double>::infinity();
     this->setTemIntersecao(false);
     
@@ -66,7 +66,7 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
         double c1, c2, c3;
 
-        if(drEscalarN < 0 && ((t = -al.produtoEscalar(w, normalMalha) /drEscalarN) > 0)){
+        if(drEscalarN != 0 && ((t = -al.produtoEscalar(w, normalMalha) /drEscalarN) > 0)){
             
             pi = al.soma(p0, al.vetorMultEscalar(dr, t));
 
@@ -85,7 +85,7 @@ bool Malha::verificarIntersecao(Vetor p0, Vetor dr){
 
             double s = c1 + c2 + c3;
 
-            if(s <= 1.001 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || distancia > t)){
+            if(s <= 1.01 && c1 >= 0 && c2 >= 0 && c3 >= 0 && (!this->getTemIntersecao() || distancia > t)){
                 this->setTemIntersecao(true);
                 distancia = t;
                 this->setDistancia(t);
