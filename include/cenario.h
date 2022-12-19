@@ -33,6 +33,7 @@ public:
 
   bool executando;
   bool perspectiva;
+  bool ambienteLigada;
   
   Cenario();
   Cenario(vector<Objeto*> objetos, vector<Iluminacao*> luzes, Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador);
@@ -40,6 +41,8 @@ public:
   void menu();
   void picking();
   void menuPicking(int indice);
+  void menuLuzes();
+  void alterarLuzes(int indice);
 
 
   vector<Objeto*> getObjetos();

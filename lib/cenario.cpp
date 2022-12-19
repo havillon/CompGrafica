@@ -12,6 +12,7 @@ Cenario::Cenario(vector<Objeto*> objetos, vector<Iluminacao*> luzes, Vetor fundo
   this->observador = observador;
   this->executando = true;
   this->perspectiva = true;
+  this->ambienteLigada = true;
 }
 
 Cenario::Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador){
@@ -22,6 +23,7 @@ Cenario::Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente,
   this->observador = observador;
   this->executando = true;
   this->perspectiva = true;
+  this->ambienteLigada = true;
 }
 
 vector<Objeto*> getObjetos();
@@ -128,64 +130,68 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
   
   Vetor v = al.vetorDivEscalar(al.vetorMultEscalar(dr,-1), al.norma(dr));
 
-  Vetor fAmbiente = al.arroba(this->objetos[index]->getKa(), luzAmbiente);
+  Vetor fAmbiente = Vetor(0,0,0,1);
+  
+  if(ambienteLigada){
+    fAmbiente = al.arroba(this->objetos[index]->getKa(), luzAmbiente);
+  }  
 
   Vetor fDifusa = Vetor(0,0,0,1);
 
   Vetor fEspecular = Vetor(0,0,0,1);
 
+  Vetor l = Vetor(0,0,0,1);
+
   bool isIntersected = false;
 
   for(int i = 0; i < luzes.size(); i++){
+    if(luzes[i]->ligada){
+      isIntersected = false;
 
-    isIntersected = false;
+      double normaPfMenosPi = luzes[i]->calcularDistancia(pi, &l);
 
-    Vetor pfMenosPi = al.vetorSubVetor(luzes[i]->posicao, pi);
-    double normaPfMenosPi = al.norma(pfMenosPi);
-  
-    Vetor l = al.vetorDivEscalar(pfMenosPi, normaPfMenosPi);
-
-    for(int j = 0; j < objetos.size(); j++){
-      if(objetos[j]->verificarIntersecao(pi, l)){
-        if(objetos[j]->getDistancia() < normaPfMenosPi){
-          isIntersected = true;
-          break;
+      for(int j = 0; j < objetos.size(); j++){
+        if(objetos[j]->verificarIntersecao(pi, l)){
+          if(objetos[j]->getDistancia() < normaPfMenosPi){
+            isIntersected = true;
+            break;
+          }
         }
       }
-    }
 
-    if(isIntersected){
-      continue;
-    }
-  
-    // n * (2*l*n) - l
-    Vetor r = al.vetorSubVetor(al.vetorMultEscalar(n, 2*al.produtoEscalar(l, n)), l);
-  
-    //difusa -> (fonte @ K) * (l.n)
-    fDifusa = al.vetorSomaVetor(
-      fDifusa, 
-      al.vetorMultEscalar(
-        al.arroba(luzes[i]->intensidade, this->objetos[index]->getKd()), 
-        max(al.produtoEscalar(l, n), 0.0)
-      )
-    );
-  
-    //especular -> (fonte @ K) * (v.r)
-    fEspecular = al.vetorSomaVetor(
-      fEspecular, 
-      al.vetorMultEscalar(
-        al.arroba(
-          luzes[i]->intensidade, 
-          this->objetos[index]->getKe()
-        ), 
-        (
-          pow(
-            max(al.produtoEscalar(r, v), 0.0), 
-            this->objetos[index]->getShininess()
+      if(isIntersected){
+        continue;
+      }
+    
+      // n * (2*l*n) - l
+      Vetor r = al.vetorSubVetor(al.vetorMultEscalar(n, 2*al.produtoEscalar(l, n)), l);
+    
+      //difusa -> (fonte @ K) * (l.n)
+      fDifusa = al.vetorSomaVetor(
+        fDifusa, 
+        al.vetorMultEscalar(
+          al.arroba(luzes[i]->intensidade, this->objetos[index]->getKd()), 
+          max(al.produtoEscalar(l, n), 0.0)
+        )
+      );
+    
+      //especular -> (fonte @ K) * (v.r)
+      fEspecular = al.vetorSomaVetor(
+        fEspecular, 
+        al.vetorMultEscalar(
+          al.arroba(
+            luzes[i]->intensidade, 
+            this->objetos[index]->getKe()
+          ), 
+          (
+            pow(
+              max(al.produtoEscalar(r, v), 0.0), 
+              this->objetos[index]->getShininess()
+            )
           )
         )
-      )
-    );
+      );
+    }
   }
 
   Vetor lFinal = al.soma(al.soma(fDifusa, fEspecular), fAmbiente);
@@ -280,7 +286,7 @@ void Cenario::menu(){
   cout << "4: Mudar tipo de projecao\n";
   cout << "5: Picking\n";
   cout << "6: Sair\n";
-  cout << "Opção desejada: \n";
+  cout << "Digite a opção desejada: ";
   cin >> opcao;
   
   switch(opcao){
@@ -312,6 +318,7 @@ void Cenario::menu(){
       break;
     case 3:
       //modificar luzes
+      menuLuzes();
       break;
     case 4:
       //mudar projecao
@@ -329,8 +336,8 @@ void Cenario::menu(){
   }
 }
 
-
 void Cenario::menuPicking(int indice){
+
   int a;
 
   cout << "\n1: Translação"
@@ -435,4 +442,74 @@ void Cenario::menuPicking(int indice){
     this->menuPicking(indice);
   }
 
+}
+
+void Cenario::menuLuzes(){
+  int opcao;
+  cout << "\nLuzes do cenário:\n";
+  for (int i = 0; i < luzes.size(); i++){
+    cout << i+1;
+    
+    switch (luzes[i]->tipo){
+    case 0:
+      cout << ": Pontual\n";
+      break;
+    case 1:
+      cout << ": Direcional\n";
+      break;
+    case 2:
+      cout << ": Spot\n";
+      break;
+    default:
+      break;
+    }
+  }
+  cout << luzes.size()+1 << ": Ambiente\n";
+  cout << "Digite a luz que deseja alterar: ";
+  cin >> opcao;
+
+  if(opcao >= 0 && opcao <= luzes.size() + 1){
+    alterarLuzes(opcao);
+  }else{
+    cout << "Opção inválida!\n";
+  }
+
+
+}
+
+void Cenario::alterarLuzes(int indice){
+  int opcao;
+
+  cout << "\n1: Alterar intensidade\n";
+  cout << "2: Ligar/desligar\n";
+  cout << "Digite a opção desejada: ";
+  cin >> opcao;
+
+  if(opcao == 1){
+    Vetor K;
+
+    printf("K (red): ");
+    cin >> K.r;
+    printf("K (green): ");
+    cin >> K.g;
+    printf("K (blue): ");
+    cin >> K.b;
+    
+    printf("\n");
+
+    if(indice <= luzes.size()){
+      luzes[indice-1]->intensidade = K;
+    }else{
+      this->luzAmbiente = K;
+    }
+
+  }else if (opcao == 2){
+    if(indice <= luzes.size()){
+      luzes[indice-1]->ligada = !luzes[indice-1]->ligada;
+    }else{
+      ambienteLigada = false;
+    }
+  }else{
+    cout << "Opção inválida!\n";
+  }
 }

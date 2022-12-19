@@ -10,9 +10,9 @@ int main(int argc, char *argv[]){
   //Fim Observador
   
   //Janela
-  int dJanela = 30;
-  Vetor cJanela (0,0, -30, 1);
-  Janela janela (cJanela, 60, 60, 500, 500, dJanela);
+  int dJanela = 50;
+  Vetor cJanela (0,0, -dJanela, 1);
+  Janela janela (cJanela, 125, 125, 500, 500, dJanela);
   //Fim Janela
   
   //Esfera
@@ -60,8 +60,8 @@ int main(int argc, char *argv[]){
   
   //Luzes
   Vetor luzAmbiente = Vetor(0.3, 0.3, 0.3, 1);
-  Iluminacao luzPontual = Iluminacao(Vetor(0.7, 0.7, 0.7, 1), Vetor(0, 0, 0, 0));
-  
+  LuzPontual luzPontual (Vetor(0.5, 0.5, 0.5, 1), Vetor(0, 0, 0, 0));
+  LuzSpot luzSpot (Vetor(0.3, 0.3, 0.3, 0), Vetor(0, -1, 0, 0), Vetor(0, 120, -70, 0), M_PI/8);
   Canvas c;
 
   //Planos
@@ -72,8 +72,8 @@ int main(int argc, char *argv[]){
   Plano paredeEsquerda (Vetor(-200, -150, 0, 0), Vetor(1, 0, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
   Plano teto (Vetor(0, 150, 0, 0), Vetor(0, -1, 0, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), Vetor(0.686, 0.933, 0.933, 0), 10);
  
-  PlanoComTextura planoChao (new Imagem("texturas/Madeira.jpg"), Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), 10.0); 
-
+  PlanoComTextura planoChao (new Imagem("texturas/Areia.jpeg"), Vetor(0, -150, 0, 0), Vetor(0, 1, 0, 0), 10.0); 
+  
   //Cubo
   //Vetor centroBase, double comprimentoAresta, Vetor Ka, Vetor Kd, Vetor Ke, double shininess
   Cubo cubo;
@@ -95,20 +95,19 @@ int main(int argc, char *argv[]){
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
   cenario->adicionarObjeto(&planoChao);
-  cenario->adicionarObjeto(&paredeDireita);
-  cenario->adicionarObjeto(&paredeFrontal);
-  cenario->adicionarObjeto(&paredeEsquerda);
-  cenario->adicionarObjeto(&teto);
-  cenario->adicionarObjeto(&cilindro);
-  cenario->adicionarObjeto(&cone);
-  cenario->adicionarObjeto(&esfera);
-  cenario->adicionarObjeto(&malha);
+  // cenario->adicionarObjeto(&paredeDireita);
+  // cenario->adicionarObjeto(&paredeFrontal);
+  // cenario->adicionarObjeto(&paredeEsquerda);
+  // cenario->adicionarObjeto(&teto);
+  // cenario->adicionarObjeto(&cilindro);
+  // cenario->adicionarObjeto(&cone);
+  // cenario->adicionarObjeto(&esfera);
+  // cenario->adicionarObjeto(&malha);
   cenario->adicionarLuz(&luzPontual);
+  // cenario->adicionarLuz(&luzSpot);
   cenario->pintarCanvas();
   //Fim Cenario
   
-  // s.update(renderer);
-  // s.listenEventQuit(window);
   return 0;
 
 }
