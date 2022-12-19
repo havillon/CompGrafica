@@ -1,5 +1,36 @@
 #include "../include/objeto.h"
 
+void Objeto::alterarPropriedades(){
+  Vetor Ka, Ke, Kd;
+
+  printf("Ka (red): ");
+  cin >> Ka.r;
+  printf("Ka (green): ");
+  cin >> Ka.g;
+  printf("Ka (blue): ");
+  cin >> Ka.b;
+
+  printf("Ke (red): ");
+  cin >> Ke.r;
+  printf("Ke (green): ");
+  cin >> Ke.g;
+  printf("Ke (blue): ");
+  cin >> Ke.b;
+
+  printf("Kd (red): ");
+  cin >> Kd.r;
+  printf("Kd (green): ");
+  cin >> Kd.g;
+  printf("Kd (blue): ");
+  cin >> Kd.b;
+  
+  printf("\n");
+
+  this->Ka = Ka;
+  this->Ke = Ke;
+  this->Kd = Kd;
+}
+
 //Ka
 Vetor Objeto::getKa(){
   return this->Ka;
@@ -47,14 +78,6 @@ Vetor Objeto::getPontoIntersecao(){
 void Objeto::setPontoIntersecao(Vetor pontoIntersecao){
   this->pontoIntersecao = pontoIntersecao;
 }
-
-//DistanciaSombra
-// double Objeto::getDistanciaSombra(){
-//   return this->distanciaSombra;
-// }
-// void Objeto::setDistanciaSombra(double distanciaSombra){
-//   this->distanciaSombra = distanciaSombra;
-// }
 
 //TemIntersecao
 bool Objeto::getTemIntersecao(){

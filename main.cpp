@@ -1,4 +1,5 @@
 #include "include/setup.h"
+#include "include/cenario.h"
 
 AlgebraLinear al;
 

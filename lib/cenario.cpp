@@ -10,6 +10,8 @@ Cenario::Cenario(vector<Objeto*> objetos, vector<Iluminacao*> luzes, Vetor fundo
   this->janela = &janela;
   this->luzAmbiente = luzAmbiente;
   this->observador = observador;
+  this->executando = true;
+  this->perspectiva = true;
 }
 
 Cenario::Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador){
@@ -18,6 +20,8 @@ Cenario::Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente,
   this->janela = &janela;
   this->luzAmbiente = luzAmbiente;
   this->observador = observador;
+  this->executando = true;
+  this->perspectiva = true;
 }
 
 vector<Objeto*> getObjetos();
@@ -50,31 +54,31 @@ void Cenario::adicionarLuz(Iluminacao *luz){
 }
 
 void Cenario::pintarCanvas(){
-  Setup s;
-  SDL_Window *window = nullptr;
-  SDL_Renderer *renderer = nullptr;
-  s.initializeSDLAndWindow(&window, &renderer, 500, 500);
-
-  Vetor p = this->observador.p0;
-
-  //60
-  double wJ = this->janela->wJanela;
-  double hJ = this->janela->hJanela;
   
-  //500
-  double nL = this->janela->nLinhas;
-  double nC = this->janela->nColunas;
+  s.initializeSDLAndWindow(&window, &renderer, janela->nLinhas, janela->nColunas);
 
-  // 60/500
-  double dx = wJ/nC;
-  double dy = hJ/nL;
+  while(executando){
 
-  double x,y;
-  Vetor dr;
+    Vetor p = this->observador.p0;
 
-  int posObjFrontal;
+    //60
+    double wJ = this->janela->wJanela;
+    double hJ = this->janela->hJanela;
+    
+    //500
+    double nL = this->janela->nLinhas;
+    double nC = this->janela->nColunas;
 
-  while(true){
+
+    // 60/500
+    double dx = wJ/nC;
+    double dy = hJ/nL;
+
+    double x,y;
+    Vetor dr;
+
+    int posObjFrontal;
+
     for (int l = 0; l < nL; l++){
       y = hJ/2.0 - dy/2.0 - dy*l;
       for(int c = 0; c < nC; c++){
@@ -83,18 +87,18 @@ void Cenario::pintarCanvas(){
         
         x = -wJ/2.0 + dx/2.0 + c*dx;
 
-        // p = Vetor(x, y, -20, 0);
-        
-        dr.set(x, y, -this->janela->distancia, 1);
-        // dr.set(0, 0, -1, 0);
+        if(perspectiva){
+          dr.set(x, y, -this->janela->distancia, 1);
+        }else{
+          dr.set(0, 0, -1, 0);
+          p = Vetor(x, y, -this->janela->distancia, 1);
+        }
 
         for(int i = 0; i < objetos.size(); i++){
           if(objetos[i]->verificarIntersecao(p, dr)){
-            
             if((posObjFrontal < 0) || (objetos[i]->getDistancia() < objetos[posObjFrontal]->getDistancia())){
               posObjFrontal = i;
             }
-            
           } 
         }
 
@@ -111,8 +115,7 @@ void Cenario::pintarCanvas(){
       }
     }
     s.update(renderer);
-    picking();
-    // s.listenEventQuit(window);
+    menu();
   }
   
  
@@ -163,7 +166,7 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
       fDifusa, 
       al.vetorMultEscalar(
         al.arroba(luzes[i]->intensidade, this->objetos[index]->getKd()), 
-        std::max(al.produtoEscalar(l, n), 0.0)
+        max(al.produtoEscalar(l, n), 0.0)
       )
     );
   
@@ -177,7 +180,7 @@ Vetor Cenario::buscarCor(Vetor pi, Vetor dr, int index){
         ), 
         (
           pow(
-            std::max(al.produtoEscalar(r, v), 0.0), 
+            max(al.produtoEscalar(r, v), 0.0), 
             this->objetos[index]->getShininess()
           )
         )
@@ -233,7 +236,9 @@ void Cenario::picking(){
 
               Patualizado = Pdesatualizado;
               
-              dr = al.vetorSubVetor(Patualizado, p0);
+              if(perspectiva){
+                dr = al.vetorSubVetor(Patualizado, p0);
+              }
               // if (camera->tipo_visao == 1)
               // {
               //   dr = subP(Patualizado, P0);
@@ -266,24 +271,88 @@ void Cenario::picking(){
   }
 }
 
+void Cenario::menu(){
+  int opcao;
+  cout << "--------MENU--------\n";
+  cout << "1: Alterar tamanho da janela\n";
+  cout << "2: Alterar distancia\n";
+  cout << "3: Modificar fontes luminosas\n";
+  cout << "4: Mudar tipo de projecao\n";
+  cout << "5: Picking\n";
+  cout << "6: Sair\n";
+  cout << "Opção desejada: \n";
+  cin >> opcao;
+  
+  switch(opcao){
+    case 1:
+      //mudar tamanho da janela
+      double largura;
+      double altura;
 
-void Cenario::menuPicking(int indice)
-{
+      cout << "Digite a largura da janela: ";
+      cin >> largura;
+      cout << "Digite a altura da janela: ";
+      cin >> altura;
+
+      this->janela->wJanela = largura;
+      this->janela->hJanela = altura;
+      this->janela->nLinhas = largura*4;
+      this->janela->nColunas = altura*4;
+
+      s.listenEventQuit(window, renderer);
+      s.initializeSDLAndWindow(&window, &renderer, janela->nLinhas, janela->nColunas);
+
+      break;
+    case 2:
+      double distancia;
+      cout << "Digite a nova distancia da janela: ";
+      cin >> distancia;
+
+      this->janela->distancia = distancia;
+      break;
+    case 3:
+      //modificar luzes
+      break;
+    case 4:
+      //mudar projecao
+      perspectiva = !perspectiva;
+      break;
+    case 5:
+      //picking
+      this->picking();
+      break;
+    case 6:
+      //sair
+      executando = false;
+      s.listenEventQuit(window, renderer);
+      break;
+  }
+}
+
+
+void Cenario::menuPicking(int indice){
   int a;
 
-  cout << "\n1 -> Translação"
-          "\n2 -> rx    3 -> ry    4 -> rz"
-          "\n5 -> espxy    6 -> espxz    7 -> espyz"
-          "\n8 -> cisYX    9 -> cisXY    10 -> cisXZ"
-          "\n11 -> cisZX    12 -> cisYZ    13 -> cisZY"
-          "\n14 -> escala"
-          "\n15 -> Mudar propriedades do material\n";
+  cout << "\n1: Translação"
+          "\n2: RotacionarX"
+          "\n3: RotacionarY"
+          "\n4: RotacionarZ"
+          "\n5: EspelhamentoXY"
+          "\n6: EspelhamentoXZ"
+          "\n7: EspelhamentoYZ"
+          "\n8: CisalhamentoYX"
+          "\n9: CisalhamentoXY"
+          "\n10: CisalhamentoXZ"
+          "\n11: CisalhamentoZX"
+          "\n12: CisalhamentoYZ"
+          "\n13: CisalhamentoZY"
+          "\n14: Escala"
+          "\n15: Mudar propriedades do material\n";
   cin >> a;
   getchar();
   
   double tx, ty, tz, alfa, ex, ey, ez;
-  if (a == 1)
-  {
+  if (a == 1){
     cout << "x: ";
     cin >> tx;
     cout << "y: ";
@@ -293,92 +362,76 @@ void Cenario::menuPicking(int indice)
     objetos[indice]->translacao(tx, ty, tz);
   }
 
-  else if (a == 2 || a == 3 || a == 4 || ((a > 7) && (a < 14)))
-  {
-    cout << "angulo (em graus): ";
+  else if (a == 2 || a == 3 || a == 4 || ((a > 7) && (a < 14))){
+    cout << "Angulo (em graus): ";
     cin >> alfa;
     alfa = (alfa * M_PI) / 180;
 
-    if (a == 2)
-    {
+    if (a == 2){
       objetos[indice]->rotacionarX(alfa);
     }
 
-    else if (a == 3)
-    {
+    else if (a == 3){
       objetos[indice]->rotacionarY(alfa);
     }
 
-    else if (a == 4)
-    {
+    else if (a == 4){
       objetos[indice]->rotacionarZ(alfa);
     }
 
-    else if (a == 8)
-    {
+    else if (a == 8){
       objetos[indice]->cisalhamentoYX(alfa);
     }
 
-    else if (a == 9)
-    {
+    else if (a == 9){
       objetos[indice]->cisalhamentoXY(alfa);
     }
 
-    else if (a == 10)
-    {
+    else if (a == 10){
       objetos[indice]->cisalhamentoXZ(alfa);
     }
 
-    else if (a == 11)
-    {
+    else if (a == 11){
       objetos[indice]->cisalhamentoZX(alfa);
     }
 
-    else if (a == 12)
-    {
+    else if (a == 12){
       objetos[indice]->cisalhamentoYZ(alfa);
     }
 
-    else
-    {
+    else{
       objetos[indice]->cisalhamentoZY(alfa);
     }
   }
 
-  else if (a == 5)
-  {
+  else if (a == 5){
     objetos[indice]->espelhamentoXY();
   }
 
-  else if (a == 6)
-  {
+  else if (a == 6){
     objetos[indice]->espelhamentoXZ();
   } 
 
-  else if (a == 7)
-  {
+  else if (a == 7){
     objetos[indice]->espelhamentoYZ();
   }
 
-  else if (a == 14)
-  {
-    cout << "ex: ";
+  else if (a == 14){
+    cout << "x: ";
     cin >> ex;
-    cout << "ey: ";
+    cout << "y: ";
     cin >> ey;
-    cout << "ez: ";
+    cout << "z: ";
     cin >> ez;
     objetos[indice]->escala(ex, ey, ez);
   }
 
-  // else if (a == 15)
-  // {
-  //   objetos[indice]->mudarPropriedadesMaterial();
-  // }
+  else if (a == 15){
+    objetos[indice]->alterarPropriedades();
+  }
 
-  else
-  {
-    cout << "\nPor favor, digite uma opção válida!\n";
+  else{
+    cout << "\nInválido! Tente novamente\n";
     this->menuPicking(indice);
   }
 

@@ -4,20 +4,18 @@
 #include <SDL2/SDL.h>
 #include <cmath>
 
-#include "cenario.h"
 #include "canvas.h"
 #include "janela.h"
 #include "observador.h"
 #include "vetor.h"
 #include "algebraLinear.h"
+#include "esfera.h"
 #include "cilindro.h"
 #include "cone.h"
 #include "malha.h"
 #include "cubo.h"
 #include "planoComTextura.h"
 #include "imagem.h"
-
-
 
 class Setup {
 
@@ -31,7 +29,7 @@ public:
 
 	void setWindowBackground(SDL_Renderer *renderer, int r, int g, int b, int a);
 
-	void listenEventQuit(SDL_Window *window);
+	void listenEventQuit(SDL_Window *window, SDL_Renderer *renderer);
 
 	void initializeSDLAndWindow(SDL_Window **window, SDL_Renderer **renderer, int width, int height);
 

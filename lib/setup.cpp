@@ -17,21 +17,8 @@ void Setup::setWindowBackground(SDL_Renderer *renderer, int r, int g, int b, int
     SDL_RenderClear(renderer);
 }
 
-void Setup::listenEventQuit(SDL_Window *window){
-    SDL_Event event;
-    bool isRunning = true;
-
-    while (isRunning)
-    {
-        while (SDL_PollEvent(&event) != 0)
-        {
-            if (event.type == SDL_QUIT)
-                isRunning = false;
-        }
-
-        SDL_UpdateWindowSurface(window);
-    }
-
+void Setup::listenEventQuit(SDL_Window *window, SDL_Renderer *renderer){
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

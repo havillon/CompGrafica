@@ -18,6 +18,7 @@ using namespace std;
 
 class Cenario {
 public:
+  Setup s;
   vector<Objeto*> objetos;
   vector<Iluminacao*> luzes;
   Vetor luzAmbiente;
@@ -26,12 +27,20 @@ public:
   Janela *janela;
   Observador observador;
   AlgebraLinear al;
+
+  SDL_Window *window = nullptr;
+  SDL_Renderer *renderer = nullptr;
+
+  bool executando;
+  bool perspectiva;
   
   Cenario();
   Cenario(vector<Objeto*> objetos, vector<Iluminacao*> luzes, Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador);
   Cenario(Vetor fundo, Canvas &canvas, Janela &janela, Vetor luzAmbiente, Observador observador);
+  void menu();
   void picking();
   void menuPicking(int indice);
+
 
   vector<Objeto*> getObjetos();
   void setObjetos(vector<Objeto*> objetos);

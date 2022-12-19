@@ -26,6 +26,8 @@ public:
 
   virtual void verificarIntersecaoTextura(Vetor p0);
 
+  void alterarPropriedades();
+
   void setKe(Vetor Ke);
   Vetor getKe();
 
@@ -47,14 +49,6 @@ public:
   void setTemIntersecao(bool temIntersecao);
   bool getTemIntersecao();
   
-  // void setDistanciaSombra(double distanciaSombra);
-  // double getDistanciaSombra();
-
-  // virtual Vetor buscarCor(Vetor pi, vector<Iluminacao*> luzes, vector<Objeto*> objetos, Vetor p0, Vetor dr, Vetor luzAmbiente, int index) = 0;
-
-  //virtual Vetor verificarCor(Vetor p0, Vetor dr, Vetor pi, vector<Iluminacao*> Luzes, vector<Objeto*> Objetos, Vetor luzAmbiente) = 0;
-
-
   virtual void rotacionarX(double angulo) = 0;
   virtual void rotacionarY(double angulo) = 0;
   virtual void rotacionarZ(double angulo) = 0;
