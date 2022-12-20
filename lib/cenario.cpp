@@ -302,8 +302,8 @@ void Cenario::menu(){
 
       this->janela->wJanela = largura;
       this->janela->hJanela = altura;
-      this->janela->nLinhas = largura*4;
-      this->janela->nColunas = altura*4;
+      // this->janela->nLinhas = largura*4;
+      // this->janela->nColunas = altura*4;
 
       s.listenEventQuit(window, renderer);
       s.initializeSDLAndWindow(&window, &renderer, janela->nLinhas, janela->nColunas);

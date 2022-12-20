@@ -136,7 +136,9 @@ void Malha::rotacionarX(double angulo){
 
 void Malha::rotacionarY(double angulo){
 	for (Vertice* v : vertices) {
+        // v->ponto = al.translacao(v->ponto, -p.x, -p.y, -p.z);
         v->ponto = al.rotacionarY(v->ponto, angulo);
+        // v->ponto = al.translacao(v->ponto, p.x, p.y, p.z);
     }
     this->centro = al.rotacionarY(this->centro, angulo);
 }
@@ -149,10 +151,10 @@ void Malha::rotacionarZ(double angulo){
 }
 
 void Malha::translacao(double x, double y, double z){
+    this->centro = al.translacao(this->centro, x, y, z);
 	for (Vertice* v : vertices) {
         v->ponto = al.translacao(v->ponto, x, y, z);
     }
-    this->centro = al.translacao(this->centro, x, y, z);
 }
 
 void Malha::escala(double sx, double sy, double sz){

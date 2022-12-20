@@ -4,7 +4,7 @@ Malha Cubo::criarCubo(Vetor centroBase, double comprimentoAresta, Vetor Ka, Veto
     Malha* malha = new Malha();
 
     malha->centro = Vetor(centroBase.x, centroBase.y + comprimentoAresta/2, centroBase.z, 0);
-    malha->raio = sqrt(2) * comprimentoAresta;
+    malha->raio = sqrt(3.0) * comprimentoAresta/2.0;
 
     malha->setShininess(shininess);
     malha->setKa(Ka);

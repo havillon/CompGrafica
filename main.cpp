@@ -61,7 +61,10 @@ int main(int argc, char *argv[]){
   //Luzes
   Vetor luzAmbiente = Vetor(0.3, 0.3, 0.3, 1);
   LuzPontual luzPontual (Vetor(0.5, 0.5, 0.5, 1), Vetor(0, 130, -200, 0));
-  LuzSpot luzSpot (Vetor(0.3, 0.3, 0.3, 0), Vetor(0, -1, 0, 0), Vetor(0, 120, -70, 0), M_PI/8);
+  LuzSpot luzSpot (Vetor(0.3, 0.3, 0.3, 0), Vetor(0, -1, 0, 0), Vetor(0, 120, -200, 0), M_PI/12);
+
+  LuzDirecional LuzDirecional(Vetor(0.2, 0.2, 0.2, 0), Vetor(1, 1, 1, 0));
+  // LuzDirecional LuzDirecional();
   Canvas c;
 
   //Planos
@@ -134,8 +137,7 @@ int main(int argc, char *argv[]){
   perna4.escala(8, 30, 8);
   perna4.translacao(-200 + larguraColchao, -150, -400 + comprimentoColchao);
 
-
-  Malha colchao = cubo.criarCubo(
+  Malha travesseiro = cubo.criarCubo(
     Vetor(0.5, 0, 0.5, 0),
     40.0,
     Vetor(0.8, 0.8, 0.9, 0),
@@ -144,8 +146,20 @@ int main(int argc, char *argv[]){
     10
   );
 
-  colchao.escala(larguraColchao + larguraPerna, alturaColchao, comprimentoColchao);
-  colchao.translacao(-200, -150 + 2*alturaColchao-10, -400 + larguraPerna);
+  travesseiro.escala((larguraColchao + larguraPerna)/2, alturaColchao, comprimentoColchao);
+  travesseiro.translacao(-200, -150 + 2*alturaColchao-10, -400 + larguraPerna);
+
+  Malha colchao = cubo.criarCubo(
+    Vetor(0.5, 0, 0.5, 0),
+    40.0,
+    Vetor(0.9, 0.1, 0.1, 0),
+    Vetor(0.9, 0.1, 0.1, 0),
+    Vetor(0.9, 0.1, 0.1, 0),
+    10
+  );
+
+  colchao.escala((larguraColchao + larguraPerna)/2, alturaColchao, comprimentoColchao);
+  colchao.translacao(-200 + (larguraColchao + larguraPerna)/2, -150 + 2*alturaColchao-10, -400 + larguraPerna);
 
 
 
@@ -244,6 +258,52 @@ int main(int argc, char *argv[]){
   malha.translacao(130.0-20.0, -160.0, -370.0);
 
 
+  //Comoda
+  Malha comoda = cubo.criarCubo(
+    Vetor(0.5, 0, 0.5, 0),
+    40.0,
+    Vetor(247.0/255.0, 208.0/255.0, 188.0/255.0, 0),
+    Vetor(247.0/255.0, 208.0/255.0, 188.0/255.0, 0),
+    Vetor(247.0/255.0, 208.0/255.0, 188.0/255.0, 0),
+    10
+  );
+
+  comoda.escala(30, 60, 40);
+  comoda.translacao(-200, -150, -200);
+
+
+  Esfera macaneta1(
+    3, 
+    Vetor(-168.5, -105, -180, 0), 
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    10
+  );  
+
+  Esfera macaneta2(
+    3, 
+    Vetor(-168.5, -135, -180, 0), 
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    10
+  ); 
+
+
+  Malha divisoria = cubo.criarCubo(
+    Vetor(0.5, 0, 0.5, 0),
+    40.0,
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    Vetor(56.0/255.0, 21.0/255.0, 3.0/255.0, 0),
+    10
+  );
+
+  divisoria.escala(1, 1, 40);
+  divisoria.translacao(-170, -120, -200);
+
+
   //Cenario
   Cenario *cenario = new Cenario(fundo, c, janela, luzAmbiente, obs);
   cenario->adicionarObjeto(&planoChao);
@@ -259,6 +319,7 @@ int main(int argc, char *argv[]){
   cenario->adicionarObjeto(&perna3);
   cenario->adicionarObjeto(&perna4);
   cenario->adicionarObjeto(&colchao);
+  cenario->adicionarObjeto(&travesseiro );
   cenario->adicionarObjeto(&estante);
   cenario->adicionarObjeto(&livro1);
   cenario->adicionarObjeto(&livro2);
@@ -266,8 +327,13 @@ int main(int argc, char *argv[]){
   cenario->adicionarObjeto(&livro4);
   cenario->adicionarObjeto(&livro5);
   cenario->adicionarObjeto(&malha);
+  cenario->adicionarObjeto(&comoda);
+  cenario->adicionarObjeto(&macaneta1);
+  cenario->adicionarObjeto(&macaneta2);
+  cenario->adicionarObjeto(&divisoria);
   cenario->adicionarLuz(&luzPontual);
-  // cenario->adicionarLuz(&luzSpot);
+  cenario->adicionarLuz(&LuzDirecional);
+  cenario->adicionarLuz(&luzSpot);
   cenario->pintarCanvas();
   //Fim Cenario
   
